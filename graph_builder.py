@@ -1,7 +1,6 @@
-"""LangGraph 状态机工作流 - 严格架构版本"""
+"""LangGraph 状态机工作流 - 多源输入版本"""
 from typing import TypedDict, Optional, Literal
 from langgraph.graph import StateGraph, END
-from fetcher import fetch_feeds
 from sniper import filter_article
 from writer import generate_article
 from notion_sink import save_to_notion
@@ -14,6 +13,8 @@ class ArticleState(TypedDict):
     link: str
     summary: str
     published_date: str
+    source_type: str  # rss/note/manual
+    content: Optional[str]  # 笔记/手动输入的完整内容
 
     # Sniper 处理结果
     pass_filter: bool
@@ -39,14 +40,14 @@ def node_sniper(state: ArticleState) -> dict:
     """
     Sniper 节点 - 调用 sniper.py 的过滤逻辑
 
-    返回要更新的状态字段
+    对于笔记/手动输入，使用完整 content 而非 summary
     """
     try:
         # 构造 sniper 需要的输入格式
         article = {
             "title": state["title"],
             "link": state["link"],
-            "summary": state["summary"]
+            "summary": state.get("content") or state["summary"]  # 优先使用完整内容
         }
 
         # 调用 sniper 模块
@@ -202,7 +203,7 @@ def process_single_article(article: dict) -> ArticleState:
     处理单篇文章
 
     Args:
-        article: 来自 fetcher 的文章数据
+        article: 来自 source 的文章数据
 
     Returns:
         最终状态
@@ -216,6 +217,8 @@ def process_single_article(article: dict) -> ArticleState:
         "link": article["link"],
         "summary": article.get("summary", ""),
         "published_date": article.get("published_date", ""),
+        "source_type": article.get("source_type", "rss"),
+        "content": article.get("content"),
         "pass_filter": False,
         "category": None,
         "reason": None,
