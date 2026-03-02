@@ -2,7 +2,6 @@
 import os
 import httpx
 from typing import Optional
-from datetime import datetime
 
 
 def save_to_notion(
@@ -30,32 +29,75 @@ def save_to_notion(
         "Notion-Version": "2022-06-28"
     }
 
+    # 构造页面内容块
+    content_blocks = []
+
+    # 添加原文链接（如果有）
+    if article_output.get("original_url"):
+        content_blocks.append({
+            "object": "block",
+            "type": "paragraph",
+            "paragraph": {
+                "rich_text": [{
+                    "type": "text",
+                    "text": {"content": f"原文: {article_output['original_url']}"}
+                }]
+            }
+        })
+        content_blocks.append({
+            "object": "block",
+            "type": "divider",
+            "divider": {}
+        })
+
+    # 添加正文内容（分段处理，每段最多 2000 字符）
+    content = article_output.get("content", "")
+    paragraphs = content.split("\n\n")
+
+    for para in paragraphs:
+        if not para.strip():
+            continue
+
+        # Notion 单个 rich_text 限制 2000 字符
+        chunks = [para[i:i+2000] for i in range(0, len(para), 2000)]
+        for chunk in chunks:
+            content_blocks.append({
+                "object": "block",
+                "type": "paragraph",
+                "paragraph": {
+                    "rich_text": [{"text": {"content": chunk}}]
+                }
+            })
+
+    # 添加 SEO 标签（如果有）
+    if article_output.get("seo_tags"):
+        content_blocks.append({
+            "object": "block",
+            "type": "divider",
+            "divider": {}
+        })
+        tags_text = "标签: " + ", ".join(article_output["seo_tags"])
+        content_blocks.append({
+            "object": "block",
+            "type": "paragraph",
+            "paragraph": {
+                "rich_text": [{
+                    "type": "text",
+                    "text": {"content": tags_text},
+                    "annotations": {"italic": True, "color": "gray"}
+                }]
+            }
+        })
+
     # Notion API 数据结构
     payload = {
         "parent": {"database_id": database_id},
         "properties": {
-            "标题": {
+            "Name": {
                 "title": [{"text": {"content": article_output["title"]}}]
-            },
-            "原文链接": {
-                "url": article_output["original_url"]
-            },
-            "SEO标签": {
-                "multi_select": [{"name": tag} for tag in article_output["seo_tags"]]
-            },
-            "创建时间": {
-                "date": {"start": datetime.now().isoformat()}
             }
         },
-        "children": [
-            {
-                "object": "block",
-                "type": "paragraph",
-                "paragraph": {
-                    "rich_text": [{"text": {"content": article_output["content"][:2000]}}]
-                }
-            }
-        ]
+        "children": content_blocks
     }
 
     try:
