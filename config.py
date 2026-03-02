@@ -1,9 +1,10 @@
 # Matrix 配置文件
 
-# 是否启用 Multi-Agent 协作模式
-# True: 使用多个 AI Agent 协作生成内容（成本更高，质量更好）
-# False: 使用单个 AI 生成内容（成本更低，速度更快）
-ENABLE_MULTI_AGENT = False
+# Agent 模式选择
+# False: 单 AI 模式（writer.py，最快最便宜）
+# "basic": 基础 Multi-Agent（agents.py，固定流程：3个Writer → Critic → Editor）
+# "langgraph": LangGraph Agent（agents_langgraph.py，自主迭代：Research → Writer ⇄ Critic → Editor）
+AGENT_MODE = False  # False | "basic" | "langgraph"
 
 # Multi-Agent 模式下的 Writer Agent 风格列表
 AGENT_PERSONAS = [

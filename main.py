@@ -5,11 +5,13 @@ from fetcher import fetch_feeds
 from sniper import filter_article
 from writer import generate_article
 from notion_sink import save_to_notion
-from config import ENABLE_MULTI_AGENT
+from config import AGENT_MODE
 
 # 条件导入 Agent 模块
-if ENABLE_MULTI_AGENT:
+if AGENT_MODE == "basic":
     from agents import collaborative_generate
+elif AGENT_MODE == "langgraph":
+    from agents_langgraph import collaborative_generate_langgraph
 
 load_dotenv()
 
@@ -20,7 +22,14 @@ NOTION_DB_ID = os.getenv("NOTION_DATABASE_ID")
 
 def main():
     """主管道：RSS -> 过滤 -> 改写 -> 存储"""
-    mode = "Multi-Agent" if ENABLE_MULTI_AGENT else "单 AI"
+    # 显示当前模式
+    if AGENT_MODE == "basic":
+        mode = "Multi-Agent (基础)"
+    elif AGENT_MODE == "langgraph":
+        mode = "Multi-Agent (LangGraph)"
+    else:
+        mode = "单 AI"
+
     print(f"🚀 Matrix 流水线启动 [{mode} 模式]\n")
 
     print("📡 [1/4] 抓取 RSS...")
@@ -42,13 +51,20 @@ def main():
             print("✍️  [3/4] AI 生成...")
 
             # 根据配置选择生成模式
-            if ENABLE_MULTI_AGENT:
-                # Multi-Agent 协作模式
+            if AGENT_MODE == "basic":
+                # 基础 Multi-Agent 模式
                 article_data = {
                     **article,
                     "suggested_angle": result.suggested_angle
                 }
                 output_dict = collaborative_generate(article_data)
+            elif AGENT_MODE == "langgraph":
+                # LangGraph Agent 模式
+                article_data = {
+                    **article,
+                    "suggested_angle": result.suggested_angle
+                }
+                output_dict = collaborative_generate_langgraph(article_data)
             else:
                 # 单 AI 模式
                 output = generate_article(article, result.suggested_angle)
