@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"gh repo create matrix --public --source=. --description=\\\"全自动内容降维打击流水线 - RSS → AI 过滤 → AI 改写 → Notion 存储\\\" --push\",\"description\":\"创建 GitHub 仓库并推送\"}",
+  "error": "Exit code 1\ncurrent directory is not a git repository. Run `git init` to initialize it\n\ncurrent directory is not a git repository. Run `git init` to initialize it",
+  "timestamp": "2026-03-02T14:51:28.915Z",
+  "retry_count": 1
+}
