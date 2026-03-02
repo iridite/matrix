@@ -47,6 +47,13 @@ def filter_article(article: dict, api_key: Optional[str] = None) -> FilterResult
         # 提取 JSON 并解析
         content = response.content[0].text
         import json
+        import re
+
+        # 尝试提取 Markdown 代码块中的 JSON
+        json_match = re.search(r'```(?:json)?\s*\n(.*?)\n```', content, re.DOTALL)
+        if json_match:
+            content = json_match.group(1)
+
         result_dict = json.loads(content)
         return FilterResult(**result_dict)
 
