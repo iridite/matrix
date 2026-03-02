@@ -26,24 +26,16 @@ def filter_article(article: dict, api_key: Optional[str] = None) -> FilterResult
     """
     client = Anthropic(api_key=api_key or os.getenv("ANTHROPIC_API_KEY"))
 
-    prompt = f"""你是 Iridite 极客媒体的内容筛选器。判断以下新闻是否值得深度改写。
+    # 加载 prompt 模板
+    prompt_path = os.path.join(os.path.dirname(__file__), "prompts", "sniper_system.txt")
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        template = f.read()
 
-# 过滤准则
-✅ 通过：技术突破、开源项目、开发者工具、AI/编程/基础设施创新
-❌ 拒绝：营销软文、融资新闻、人事变动、纯商业报道
-
-# 待评估文章
-标题：{article['title']}
-摘要：{article['summary'][:500]}
-链接：{article['link']}
-
-# 输出要求（严格 JSON）
-{{
-  "pass_filter": true/false,
-  "category": "技术/工具/AI/开源/其他",
-  "reason": "一句话说明理由",
-  "suggested_angle": "如果通过，提供降维打击的切入点（如：从开发者痛点切入、对比竞品、技术原理拆解）"
-}}"""
+    prompt = template.format(
+        title=article['title'],
+        summary=article['summary'][:500],
+        link=article['link']
+    )
 
     try:
         response = client.messages.create(

@@ -31,29 +31,25 @@ def generate_article(
     """
     client = Anthropic(api_key=api_key or os.getenv("ANTHROPIC_API_KEY"))
 
-    prompt = f"""你是 Iridite 的内容创作者。基于以下素材，生成一篇降维打击式的深度文章。
+    # 加载 prompt 模板
+    prompt_path = os.path.join(os.path.dirname(__file__), "prompts", "writer_system.txt")
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        template = f.read()
 
-# 原始素材
-标题：{article['title']}
-摘要：{article['summary']}
-链接：{article['link']}
+    prompt = template.format(
+        suggested_angle=suggested_angle,
+        article_summary=f"标题：{article['title']}\n摘要：{article['summary']}\n链接：{article['link']}"
+    )
 
-# 切入点
-{suggested_angle}
+    prompt += """
 
-# 写作要求
-- 标题：吸引极客的标题（不超过 50 字）
-- 正文：1500-2000 字，包含技术分析、开发者视角、实战价值
-- 风格：直接、犀利、有态度，避免空话套话
-- SEO 标签：3-5 个关键词
-
-# 输出格式（严格 JSON）
+【输出格式（严格 JSON）】
 {{
   "title": "最终标题",
   "content": "完整正文（Markdown 格式）",
   "seo_tags": ["标签1", "标签2", "标签3"],
-  "original_url": "{article['link']}"
-}}"""
+  "original_url": "{original_url}"
+}}""".format(original_url=article['link'])
 
     try:
         response = client.messages.create(
