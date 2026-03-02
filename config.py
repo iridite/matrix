@@ -4,7 +4,8 @@
 # False: 单 AI 模式（writer.py，最快最便宜）
 # "basic": 基础 Multi-Agent（agents.py，固定流程：3个Writer → Critic → Editor）
 # "langgraph": LangGraph Agent（agents_langgraph.py，自主迭代：Research → Writer ⇄ Critic → Editor）
-AGENT_MODE = False  # False | "basic" | "langgraph"
+# "langgraph_enhanced": 增强版 LangGraph（agents_langgraph_enhanced.py，集成 Notion 工具）
+AGENT_MODE = False  # False | "basic" | "langgraph" | "langgraph_enhanced"
 
 # Multi-Agent 模式下的 Writer Agent 风格列表
 AGENT_PERSONAS = [

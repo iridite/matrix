@@ -1,7 +1,7 @@
 {
   "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"python test_agents.py\",\"timeout\":120000,\"description\":\"测试带 JSON Parser Agent 的协作系统\"}",
-  "error": "Exit code 1\nTraceback (most recent call last):\n  File \"/home/yixian/Projects/matrix/test_agents.py\", line 5, in <module>\n    from agents import collaborative_generate\n  File \"/home/yixian/Projects/matrix/agents.py\", line 4, in <module>\n    from anthropic import Anthropic\nModuleNotFoundError: No module named 'anthropic'\n\nTraceback (most recent call last):\n  File \"/home/yixian/Projects/matrix/test_agents.py\", line 5, in <module>\n    from agents import collaborative_generate\n  File \"/home/yixian/Pr...",
-  "timestamp": "2026-03-02T15:20:44.585Z",
+  "tool_input_preview": "{\"command\":\"python test_notion_tools.py\",\"description\":\"测试 Notion 工具集\"}",
+  "error": "Exit code 1\nTraceback (most recent call last):\n  File \"/home/yixian/Projects/matrix/test_notion_tools.py\", line 3, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'\n\nTraceback (most recent call last):\n  File \"/home/yixian/Projects/matrix/test_notion_tools.py\", line 3, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'",
+  "timestamp": "2026-03-02T16:04:38.064Z",
   "retry_count": 1
 }

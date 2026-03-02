@@ -12,6 +12,8 @@ if AGENT_MODE == "basic":
     from agents import collaborative_generate
 elif AGENT_MODE == "langgraph":
     from agents_langgraph import collaborative_generate_langgraph
+elif AGENT_MODE == "langgraph_enhanced":
+    from agents_langgraph_enhanced import collaborative_generate_enhanced
 
 load_dotenv()
 
@@ -27,6 +29,8 @@ def main():
         mode = "Multi-Agent (基础)"
     elif AGENT_MODE == "langgraph":
         mode = "Multi-Agent (LangGraph)"
+    elif AGENT_MODE == "langgraph_enhanced":
+        mode = "Multi-Agent (LangGraph + Notion 工具)"
     else:
         mode = "单 AI"
 
@@ -65,6 +69,13 @@ def main():
                     "suggested_angle": result.suggested_angle
                 }
                 output_dict = collaborative_generate_langgraph(article_data)
+            elif AGENT_MODE == "langgraph_enhanced":
+                # 增强版 LangGraph Agent 模式（集成 Notion 工具）
+                article_data = {
+                    **article,
+                    "suggested_angle": result.suggested_angle
+                }
+                output_dict = collaborative_generate_enhanced(article_data)
             else:
                 # 单 AI 模式
                 output = generate_article(article, result.suggested_angle)
