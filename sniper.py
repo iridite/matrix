@@ -39,7 +39,7 @@ def filter_article(article: dict, api_key: Optional[str] = None) -> FilterResult
 
     try:
         response = client.messages.create(
-            model="claude-3-5-haiku-20241022",
+            model="claude-sonnet-4-5-20250929",
             max_tokens=500,
             messages=[{"role": "user", "content": prompt}]
         )
