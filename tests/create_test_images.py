@@ -12,7 +12,7 @@ def create_test_screenshot(text: str, output_path: str, size=(800, 600)):
     # 添加文字
     try:
         font = ImageFont.truetype("/usr/share/fonts/TTF/DejaVuSansMono.ttf", 40)
-    except:
+    except OSError:
         font = ImageFont.load_default()
 
     # 计算文字位置（居中）

@@ -90,7 +90,7 @@ def test_double_image_card():
         )
         print(f"✅ 生成成功: {output}")
     else:
-        print(f"⚠️  需要至少 2 张测试图片")
+        print("⚠️  需要至少 2 张测试图片")
         print("   请将测试图片放到 test_assets/ 目录")
 
 
