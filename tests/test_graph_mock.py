@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, 'src')
+
 """测试 LangGraph 状态机 - 完全模拟版本（不调用真实 API）"""
 from typing import TypedDict, Optional, Literal
 from langgraph.graph import StateGraph, END, START

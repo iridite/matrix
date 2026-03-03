@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, 'src')
+
 """测试 LangGraph Agent 系统"""
 from agents_langgraph import collaborative_generate_langgraph
 

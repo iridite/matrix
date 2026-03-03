@@ -1,7 +1,10 @@
 """可视化 LangGraph 工作流"""
+import sys
+sys.path.insert(0, 'src')
+
 import os
 from dotenv import load_dotenv
-from graph_builder import MatrixWorkflow
+from matrix.graph.graph_builder import MatrixWorkflow
 
 load_dotenv()
 

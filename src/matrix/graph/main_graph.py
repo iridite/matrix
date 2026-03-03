@@ -1,8 +1,8 @@
 """Matrix 主流水线 - LangGraph 调度中心"""
 import os
 from dotenv import load_dotenv
-from fetcher import fetch_feeds
-from graph_builder import process_single_article
+from matrix.core.fetcher import fetch_feeds
+from matrix.graph.graph_builder import process_single_article
 
 load_dotenv()
 

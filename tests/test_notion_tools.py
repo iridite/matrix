@@ -1,7 +1,10 @@
+import sys
+sys.path.insert(0, 'src')
+
 """测试 Notion 工具"""
 import os
 from dotenv import load_dotenv
-from tools.notion_tools import NotionTools
+from matrix.tools.notion_tools import NotionTools
 
 load_dotenv()
 

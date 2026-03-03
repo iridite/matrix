@@ -1,10 +1,10 @@
 """LangGraph 状态机工作流 - 严格架构版本"""
 from typing import TypedDict, Optional, Literal
 from langgraph.graph import StateGraph, END
-from fetcher import fetch_feeds
-from sniper import filter_article
-from writer import generate_article
-from notion_sink import save_to_notion
+from matrix.core.fetcher import fetch_feeds
+from matrix.core.sniper import filter_article
+from matrix.core.writer import generate_article
+from matrix.sinks.notion_sink import save_to_notion
 
 
 class ArticleState(TypedDict):

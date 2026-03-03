@@ -12,7 +12,7 @@ import sys
 # 添加项目根目录到路径
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from image_renderer import generate_card
+from matrix.renderers.image_renderer import generate_card
 
 
 def test_text_only_card():

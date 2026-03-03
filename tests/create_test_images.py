@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, 'src')
+
 """
 生成测试用的占位图片
 """

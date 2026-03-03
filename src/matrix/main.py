@@ -1,19 +1,19 @@
 """Matrix 主流水线 - 绝对线性控制流"""
 import os
 from dotenv import load_dotenv
-from fetcher import fetch_feeds
-from sniper import filter_article
-from writer import generate_article
-from notion_sink import save_to_notion
-from config import AGENT_MODE
+from matrix.core.fetcher import fetch_feeds
+from matrix.core.sniper import filter_article
+from matrix.core.writer import generate_article
+from matrix.sinks.notion_sink import save_to_notion
+from matrix.config import AGENT_MODE
 
 # 条件导入 Agent 模块
 if AGENT_MODE == "basic":
-    from agents import collaborative_generate
+    from matrix.agents.agents import collaborative_generate
 elif AGENT_MODE == "langgraph":
-    from agents_langgraph import collaborative_generate_langgraph
+    from matrix.agents.agents_langgraph import collaborative_generate_langgraph
 elif AGENT_MODE == "langgraph_enhanced":
-    from agents_langgraph_enhanced import collaborative_generate_enhanced
+    from matrix.agents.agents_langgraph_enhanced import collaborative_generate_enhanced
 
 load_dotenv()
 

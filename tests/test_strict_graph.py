@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, 'src')
+
 """测试严格架构版本的 LangGraph - 使用模拟数据"""
 from typing import TypedDict, Optional, Literal
 from langgraph.graph import StateGraph, END

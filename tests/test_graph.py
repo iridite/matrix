@@ -1,5 +1,8 @@
+import sys
+sys.path.insert(0, 'src')
+
 """测试 LangGraph 状态机 - 使用模拟数据"""
-from graph_builder import MatrixWorkflow, ArticleState
+from matrix.graph.graph_builder import MatrixWorkflow, ArticleState
 
 def test_workflow():
     """测试完整工作流"""

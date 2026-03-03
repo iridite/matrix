@@ -4,7 +4,7 @@ import json
 from typing import TypedDict, Literal
 from anthropic import Anthropic
 from langgraph.graph import StateGraph, END, START
-from tools.notion_tools import NotionTools, NOTION_TOOLS_DESCRIPTION
+from matrix.tools.notion_tools import NotionTools, NOTION_TOOLS_DESCRIPTION
 
 
 class AgentState(TypedDict):
