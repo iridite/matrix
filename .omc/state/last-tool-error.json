@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"python test_notion_tools.py\",\"description\":\"测试 Notion 工具集\"}",
-  "error": "Exit code 1\nTraceback (most recent call last):\n  File \"/home/yixian/Projects/matrix/test_notion_tools.py\", line 3, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'\n\nTraceback (most recent call last):\n  File \"/home/yixian/Projects/matrix/test_notion_tools.py\", line 3, in <module>\n    from dotenv import load_dotenv\nModuleNotFoundError: No module named 'dotenv'",
-  "timestamp": "2026-03-02T16:04:38.064Z",
-  "retry_count": 1
-}
