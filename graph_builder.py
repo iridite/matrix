@@ -26,6 +26,10 @@ class ArticleState(TypedDict):
     draft_content: Optional[str]
     seo_tags: Optional[list[str]]
 
+    # 图片渲染
+    local_media_list: Optional[list[str]]  # 本地图片路径列表
+    final_card_path: Optional[str]  # 生成的卡片路径
+
     # Notion 处理结果
     notion_url: Optional[str]
     error: Optional[str]
@@ -223,6 +227,8 @@ def process_single_article(article: dict) -> ArticleState:
         "draft_title": None,
         "draft_content": None,
         "seo_tags": None,
+        "local_media_list": None,
+        "final_card_path": None,
         "notion_url": None,
         "error": None
     }
