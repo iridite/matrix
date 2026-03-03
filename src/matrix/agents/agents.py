@@ -1,6 +1,6 @@
 """Multi-Agent 协作系统"""
-import os
 from typing import List, Dict, Optional
+from matrix.utils.client import get_anthropic_client
 from anthropic import Anthropic
 from pydantic import BaseModel
 
@@ -16,7 +16,7 @@ class CollaborativeSession:
     """多 Agent 协作会话"""
 
     def __init__(self, api_key: Optional[str] = None):
-        self.client = Anthropic(api_key=api_key or os.getenv("ANTHROPIC_API_KEY"))
+        self.client = get_anthropic_client(api_key)
         self.messages: List[AgentMessage] = []
         self.shared_context = {}
 
@@ -255,7 +255,7 @@ def collaborative_generate(article_data: dict, api_key: Optional[str] = None) ->
     2. Critic Agent 评估所有版本
     3. Editor Agent 生成最终版本
     """
-    client = Anthropic(api_key=api_key or os.getenv("ANTHROPIC_API_KEY"))
+    client = get_anthropic_client(api_key)
     session = CollaborativeSession(api_key=api_key)
 
     # 保存原始文章数据到 session

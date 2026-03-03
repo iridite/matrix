@@ -409,8 +409,11 @@ articles = source.fetch()  # 交互式输入
 | 变量名 | 必需 | 说明 |
 |--------|------|------|
 | `ANTHROPIC_API_KEY` | ✅ | Claude API Key |
+| `ANTHROPIC_BASE_URL` | ❌ | Third-party API endpoint (leave empty for official API) |
 | `NOTION_API_TOKEN` | ❌ | Notion Integration Token |
 | `NOTION_DATABASE_ID` | ❌ | Notion Database ID |
+
+**Third-party API Support**: Matrix supports Anthropic-compatible third-party services. See [Third-party API Guide](docs/third-party-api.md) for details.
 
 ### 工作流配置
 

@@ -1,4 +1,9 @@
 # Matrix 配置文件
+import os
+
+# Anthropic API 配置
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+ANTHROPIC_BASE_URL = os.getenv("ANTHROPIC_BASE_URL")  # 可选，用于第三方 API
 
 # Agent 模式选择
 # False: 单 AI 模式（writer.py，最快最便宜）

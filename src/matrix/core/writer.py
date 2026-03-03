@@ -2,7 +2,7 @@
 import os
 from typing import Optional
 from pydantic import BaseModel
-from anthropic import Anthropic
+from matrix.utils.client import get_anthropic_client
 
 
 class ArticleOutput(BaseModel):
@@ -29,7 +29,7 @@ def generate_article(
     Returns:
         ArticleOutput 对象
     """
-    client = Anthropic(api_key=api_key or os.getenv("ANTHROPIC_API_KEY"))
+    client = get_anthropic_client(api_key)
 
     # 加载 prompt 模板
     prompt_path = os.path.join(os.path.dirname(__file__), "prompts", "writer_system.txt")

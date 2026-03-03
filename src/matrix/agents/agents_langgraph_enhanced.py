@@ -2,9 +2,9 @@
 import os
 import json
 from typing import TypedDict, Literal
-from anthropic import Anthropic
+from matrix.utils.client import get_anthropic_client
 from langgraph.graph import StateGraph, END, START
-from matrix.tools.notion_tools import NotionTools, NOTION_TOOLS_DESCRIPTION
+from matrix.tools.notion_tools import NotionTools
 
 
 class AgentState(TypedDict):
@@ -31,7 +31,7 @@ class EnhancedLangGraphAgent:
     """增强版 LangGraph Agent - 支持 Notion 工具调用"""
 
     def __init__(self, api_key: str = None):
-        self.client = Anthropic(api_key=api_key or os.getenv("ANTHROPIC_API_KEY"))
+        self.client = get_anthropic_client(api_key)
         self.notion_tools = NotionTools()
         self.max_iterations = 3
 

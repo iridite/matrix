@@ -360,6 +360,11 @@ articles = source.fetch()  # 交互式输入标题和内容
 # 必需
 ANTHROPIC_API_KEY=sk-ant-your-key-here
 
+# 可选（第三方 API 中转）
+# 留空则使用官方 API，填写则使用第三方服务
+# 示例: https://api.example.com/v1
+ANTHROPIC_BASE_URL=
+
 # 可选（Notion 集成）
 NOTION_API_TOKEN=ntn_your-token-here
 NOTION_DATABASE_ID=your-database-id
@@ -369,6 +374,8 @@ RSS_FEEDS=https://hnrss.org/frontpage,https://example.com/feed
 NOTES_DIR=~/notes
 MAX_ITEMS_PER_FEED=5
 ```
+
+**第三方 API 支持**：Matrix 支持使用兼容 Anthropic API 的第三方服务（如 API 中转）。详见 [第三方 API 配置指南](docs/third-party-api.md)。
 
 ### 工作流配置
 

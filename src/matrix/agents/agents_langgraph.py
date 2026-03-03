@@ -1,7 +1,6 @@
 """LangGraph 版本的 Multi-Agent 协作系统"""
-import os
 from typing import TypedDict, Literal
-from anthropic import Anthropic
+from matrix.utils.client import get_anthropic_client
 from langgraph.graph import StateGraph, END, START
 
 
@@ -25,7 +24,7 @@ class LangGraphAgentSystem:
     """基于 LangGraph 的自主协作 Agent 系统"""
 
     def __init__(self, api_key: str = None):
-        self.client = Anthropic(api_key=api_key or os.getenv("ANTHROPIC_API_KEY"))
+        self.client = get_anthropic_client(api_key)
         self.max_iterations = 3
 
     def research_node(self, state: AgentState) -> AgentState:
